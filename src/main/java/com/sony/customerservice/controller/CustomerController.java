@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sony.customerservice.entity.Customer;
 import com.sony.customerservice.entity.CustomerList;
-import com.sony.customerservice.generator.MyGenerator;
 import com.sony.customerservice.service.CustomerService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
@@ -53,7 +54,6 @@ public class CustomerController {
 	@PostMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<Object> handlePost(@RequestBody Customer customer) {
-//			customer = MyGenerator.sendForIdGeneration(customer);
 		try {
 			customer = customerservice.addNewCustomer(customer);
 			return ResponseEntity.status(HttpStatus.CREATED).body(customer);
